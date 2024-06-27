@@ -2,25 +2,25 @@
     {
         "id": 1,
         "name": "Temperature Sensor",
-        "type": "temperature",
+        "type": "temperatura",
         "value": 20,
         "unit": "°C",
-        "updated_at": "2021-06-01T12:00:00"
+        "updated_at": "2021-06-06T12:00:00"
     },
     {
         "id": 2,
         "name": "Humidity Sensor",
-        "type": "humidity",
+        "type": "humedad",
         "value": 50,
         "unit": "%",
-        "updated_at": "2021-06-01T12:00:00"
+        "updated_at": "2021-06-20T12:00:00"
     },
     {
         "id": 3,
         "name": "Pressure Sensor",
-        "type": "pressure",
+        "type": "presion",
         "value": 1013,
         "unit": "hPa",
-        "updated_at": "2021-06-01T12:00:00"
+        "updated_at": "2021-06-26T12:00:00"
     }
 ]

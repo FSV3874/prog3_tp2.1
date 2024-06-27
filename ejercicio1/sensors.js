@@ -14,7 +14,7 @@ class Sensor {
             this.value = newValue;
             this.updated_at = new Date().toISOString();
         }else {
-            console.error('Tipo de sensor no permitido: ${this.type}');
+            console.error(`Tipo de sensor no permitido: ${this.type}`);
         }
     }
 }
@@ -28,6 +28,8 @@ class SensorManager {
         this.sensors.push(sensor);
     }
 
+    //No actualizaba por que sensors.json no coincidian los TYPE de los sensores.
+    // se corrigio eso para que el code funcione correctamente.
     updateSensor(id) {
         const sensor = this.sensors.find((sensor) => sensor.id === id);
         if (sensor) {
@@ -60,7 +62,13 @@ class SensorManager {
                      // Realiza una solicitud HTTP para obtener el archivo JSON con los datos de los sensores 
                      try{                                       // Declaración de una función asincrónica
                         const response = await fetch(url);          // Espera a que la promesa se resuelva
+                        //Muestra error por console del navegador se agrega las siguientes lineas
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        
                         const sensorData = await response.json();   // Espera a que la respuesta se convierta en JSON
+                        
                         sensorData.forEach((sensorInfo)=>{          // Procesa cada sensor
                             const sensor = new Sensor(              // Añade el sensor creado al array de sensores
                                 sensorInfo.id,
@@ -72,6 +80,7 @@ class SensorManager {
                             );
                             this.addSensor(sensor);
                         });
+
                         this.render();                           // Llama a render para actualizar la vista
                     } catch (error) {
                         console.error("Error al cargar los sensores: ", error);
@@ -97,8 +106,8 @@ class SensorManager {
                                 <strong>Tipo:</strong> ${sensor.type}
                             </p>
                             <p>
-                               <strong>Valor:</strong> 
-                               ${sensor.value} ${sensor.unit}
+                                <strong>Valor:</strong>
+                                ${sensor.value} ${sensor.unit}
                             </p>
                         </div>
                         <time datetime="${sensor.updated_at}">
@@ -116,7 +125,7 @@ class SensorManager {
             `;
             container.appendChild(sensorCard);
         });
-
+    
         const updateButtons = document.querySelectorAll(".update-button");
         updateButtons.forEach((button) => {
             button.addEventListener("click", (event) => {
