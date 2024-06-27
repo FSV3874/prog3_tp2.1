@@ -12,7 +12,7 @@ Particularmente, necesitaremos los siguientes endpoints:
 ## Estructura del proyecto
 
 - `converter.html`: plantilla HTML que contiene un formulario para realizar la conversión de monedas. En este formulario se debe ingresar el monto a convertir, la moneda de origen y la moneda de destino. Estas últimas se deben seleccionar a través de un `select`, cuyas opciones se deben cargar dinámicamente con los códigos de monedas disponibles mediante una API call al endpoint `/currencies`.
-- `converter.js`: archivo JavaScript que contiene la lógica para realizar la conversión de monedas. 
+- `converter.js`: archivo JavaScript que contiene la lógica para realizar la conversión de monedas.
 
 ### Clase `Currency`
 
@@ -59,7 +59,6 @@ Para su correcto funcionamiento, la clase `CurrencyConverter` debe implementar l
         - El método debe manejar errores en caso de que la petición falle y retornar `null` en caso de error.
 
 > Pueden emplearse otros métodos y atributos en la clase `CurrencyConverter` si se considera necesario.
-
 > Si lo considera conveniente, puede emplear una API diferente para obtener las tasas de cambio de monedas, siempre y cuando cumpla con los requerimientos del ejercicio.
 
 ## Funcionalidades adicionales
