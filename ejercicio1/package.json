@@ -1,0 +1,16 @@
+{
+  "name": "ejercicio1",
+  "version": "1.0.0",
+  "description": "En este ejercicio se solicita completar la implementación del sistema de **sensores**.",
+  "main": "sensors.js",
+  "scripts": {
+    "start": "http-server & start http://127.0.0.1:8080/sensors.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^14.1.1" 
+  } 
+}

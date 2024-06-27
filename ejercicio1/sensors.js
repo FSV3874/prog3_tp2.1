@@ -7,8 +7,10 @@ class Sensor {
         this.unit = unit;
         this.updated_at = updated_at;
     }
+    // Se solicita 'temperature', 'humidity', 'pressure',En la clase SensorManage
+    // usa temperatura, humedad, presion, - Lo dejaremo en Español para evitar errores en la correcion del codigo
     set updateValue(newValue) {
-        if(['temperature', 'humidity', 'pressure'].includes(this.type) ){
+        if(['temperatura', 'humedad', 'presion'].includes(this.type) ){
             this.value = newValue;
             this.updated_at = new Date().toISOString();
         }else {
@@ -49,8 +51,32 @@ class SensorManager {
             console.error(`Sensor ID ${id} no encontrado`);
         }
     }
-
-    async loadSensors(url) {}
+/*La función `loadSensors` es un método de la clase `SensorManager`. 
+ Este método se encarga de cargar los datos de los sensores desde un archivo 
+ JSON ubicado en una URL especificada y luego actualizar el estado de la aplicación 
+ para reflejar estos datos. 
+ Declaración de una función asincrónica - Método `loadSensors*/
+    async loadSensors(url) {
+                     // Realiza una solicitud HTTP para obtener el archivo JSON con los datos de los sensores 
+                     try{                                       // Declaración de una función asincrónica
+                        const response = await fetch(url);          // Espera a que la promesa se resuelva
+                        const sensorData = await response.json();   // Espera a que la respuesta se convierta en JSON
+                        sensorData.forEach((sensorInfo)=>{          // Procesa cada sensor
+                            const sensor = new Sensor(              // Añade el sensor creado al array de sensores
+                                sensorInfo.id,
+                                sensorInfo.name,
+                                sensorInfo.type,
+                                sensorInfo.value,
+                                sensorInfo.unit,
+                                sensorInfo.updated_at
+                            );
+                            this.addSensor(sensor);
+                        });
+                        this.render();                           // Llama a render para actualizar la vista
+                    } catch (error) {
+                        console.error("Error al cargar los sensores: ", error);
+                    }
+    }
 
     render() {
         const container = document.getElementById("sensor-container");
@@ -101,7 +127,7 @@ class SensorManager {
         });
     }
 }
-
+// Creación y uso de una instancia de SensorManager
 const monitor = new SensorManager();
 
 monitor.loadSensors("sensors.json");
