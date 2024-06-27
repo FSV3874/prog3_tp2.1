@@ -39,6 +39,9 @@ class Restaurant {
     }
 
     render() {
+        // Ordenar las reservas por fecha
+        this.reservations.sort((a, b) => a.date - b.date);
+
         const container = document.getElementById("reservations-list");
         container.innerHTML = "";
         this.reservations.forEach((reservation) => {
@@ -92,15 +95,20 @@ document
 
             restaurant.addReservation(reservation);
             restaurant.render();
+
+            localStorage.setItem("reservations", JSON.stringify(restaurant.reservations)); /*guarda en el disco*/
+            document.getElementById("reservation-form").reset(); /*Limpia el formulario*/
+
         } else {
             alert("Datos de reserva inválidos");
             return;
         }
     });
 
-const restaurant = new Restaurant("El Lojal Kolinar");
 
-const customer1 = new Customer(1, "Shallan Davar", "shallan@gmail.com");
+
+const restaurant = new Restaurant("El Lojal Kolinar");
+/*const customer1 = new Customer(1, "Shallan Davar", "shallan@gmail.com");
 const reservation1 = new Reservation(1, customer1, "2024-12-31T20:00:00", 4);
 
 if (Reservation.validateReservation(reservation1.date, reservation1.guests)) {
@@ -108,4 +116,34 @@ if (Reservation.validateReservation(reservation1.date, reservation1.guests)) {
     restaurant.render();
 } else {
     alert("Datos de reserva inválidos");
+}*/
+
+// Función para cargar las reservas guardadas del almacenamiento local
+function loadReservations() {
+    const savedReservations = localStorage.getItem("reservations");
+    if (savedReservations) {
+        const parsedReservations = JSON.parse(savedReservations);
+        parsedReservations.forEach((reservation) => {
+            const currentDateTime = new Date();
+            const reservationDateTime = new Date(reservation.date);
+            if (reservationDateTime >= currentDateTime) {
+                const customer = new Customer(
+                    reservation.customer.id,
+                    reservation.customer.name,
+                    reservation.customer.email
+                );
+                const newReservation = new Reservation(
+                    reservation.id,
+                    customer,
+                    reservation.date,
+                    reservation.guests
+                );
+                restaurant.addReservation(newReservation);
+            }else {
+                alert("Datos de reserva inválidos");
+            }
+        });
+        restaurant.render();
+    }
 }
+loadReservations();
