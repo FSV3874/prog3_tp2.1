@@ -91,6 +91,33 @@ class Board {
             this.onCardClick(card);
         }
     }
+
+        //El método shuffleCards() mezcla las cartas utilizando el 
+    //algoritmo de Fisher-Yates.
+    shuffleCards(){
+        for(let i = this.cards.length - 1; i > 0; i--) {
+            const j = math.floor(Math.random() * (i+1));
+            [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
+        }
+    }
+
+    //El método flipDownAllCards() pone todas las cartas en su 
+    //estado inicial (no volteadas).
+    flipDownAllCards(){
+        this.cards.forEach(card => {
+            if (card.isFlipped){
+                card.toggleFlip();
+            }
+        });
+    }
+
+    //El método reset() mezcla las cartas, las voltea a su estado 
+    //inicial y renderiza el tablero.
+    reset(){
+        this.shuffleCards();
+        this.flipDownAllCards();
+        this.render();
+    }
 }
 
 class MemoryGame {
