@@ -96,7 +96,7 @@ class Board {
     //algoritmo de Fisher-Yates.
     shuffleCards(){
         for(let i = this.cards.length - 1; i > 0; i--) {
-            const j = math.floor(Math.random() * (i+1));
+            const j = Math.floor(Math.random() * (i+1));
             [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
         }
     }
@@ -151,18 +151,35 @@ class MemoryGame {
     //las añade al conjunto de cartas emparejadas; si no, las vuelve a voltear.
     checkForMatch(){
         const [card1, card2] = this.flippedCards;
-        if (card1.matchedCards.push(card1, card2)){
+       /*if (card1.matchedCards.push(card1, card2)){
             this.matchedCards.push(card1, card2);
         } else {
             card1.toggleFlip();
             card2.toggleFlip();
         }
-        this.flippedCards = [];
+        this.flippedCards = [];*/
+
+        if (card1.matches(card2)) {
+            this.matchedCards.push(card1, card2);
+            this.flippedCards = [];
+
+            if (this.matchedCards.length === this.board.cards.length) {
+                // Si todas las cartas están emparejadas, el juego ha terminado
+                alert("¡Has ganado!");
+            }
+        } else {
+            setTimeout(() => {
+                card1.toggleFlip();
+                card2.toggleFlip();
+                this.flippedCards = [];
+            }, this.flipDuration);
+        }
     }
 
     //El método resetGame() reinicia el juego reseteando las cartas volteadas y emparejadas,
     // y luego reinicia el tablero.
     resetGame(){
+        this.flippedCards.forEach(card => card.toggleFlip());
         this.flippedCards = [];
         this.matchedCards = [];
         this.board.reset();
