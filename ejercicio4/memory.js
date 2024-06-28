@@ -31,6 +31,23 @@ class Card {
         const cardElement = this.element.querySelector(".card");
         cardElement.classList.remove("flipped");
     }
+
+     //Definir el método `toggleFlip()` que cambia el estado de volteo 
+    // de la carta en función de su estado actual.
+    toggleFlip(){
+        if(this.isFlipped){
+            this.#unflip();
+        }else{
+            this.#flip();
+        }
+        this.isFlipped = !this.isFlipped;
+    }
+
+    //Implementar el método `matches(otherCard)` que verifica si la 
+    //carta actual coincide con otra carta.
+    matches(otherCard){
+        return this.name === otherCard.name;
+    }
 }
 
 class Board {
