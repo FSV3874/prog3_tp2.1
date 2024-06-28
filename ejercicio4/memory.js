@@ -146,6 +146,28 @@ class MemoryGame {
             }
         }
     }
+
+    //El método checkForMatch() verifica si las dos cartas volteadas coinciden. Si coinciden, 
+    //las añade al conjunto de cartas emparejadas; si no, las vuelve a voltear.
+    checkForMatch(){
+        const [card1, card2] = this.flippedCards;
+        if (card1.matchedCards.push(card1, card2)){
+            this.matchedCards.push(card1, card2);
+        } else {
+            card1.toggleFlip();
+            card2.toggleFlip();
+        }
+        this.flippedCards = [];
+    }
+
+    //El método resetGame() reinicia el juego reseteando las cartas volteadas y emparejadas,
+    // y luego reinicia el tablero.
+    resetGame(){
+        this.flippedCards = [];
+        this.matchedCards = [];
+        this.board.reset();
+    }
+
 }
 
 document.addEventListener("DOMContentLoaded", () => {
