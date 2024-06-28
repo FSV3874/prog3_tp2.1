@@ -5,19 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link
             rel="icon"
-            href="https://academiacimneiber.com/assets/logoClaro-Z6OnHFdL.png"
-        />
+            href="https://academiacimneiber.com/assets/logoClaro-Z6OnHFdL.png" />
         <title>Juego de Memoria</title>
         <link
             rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
-        />
+            href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css" />
         <link rel="stylesheet" href="memory.css" />
     </head>
     <body>
         <section class="section">
             <div class="container">
                 <h1 class="title">Juego de Memoria</h1>
+                <div class="game-info">
+                    <div>Movimientos: <span id="move-counter">0</span></div>
+                    <div>Tiempo: <span id="timer">0:00</span></div>
+                    <div>Puntuación: <span id="score">0</span></div>
+                </div>
                 <button id="restart-button" class="button is-primary">
                     Reiniciar Juego
                 </button>
